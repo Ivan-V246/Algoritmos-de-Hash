@@ -48,8 +48,13 @@ class HashTable: #Definição da classe HashTable
             while(aux != None):
                 print(aux.valor)
                 aux = aux.prox
+
+    #Retorna o fator de carga da HashTable atual ao passar a quantidade de elementos inseridos
+    def fator(self, n):
+        return n/self.M
+
     
-Tabela = HashTable(100) #Cria a estrutura de HashTable, definindo as posições
+Tabela = HashTable(64) #Cria a estrutura de HashTable, definindo as posições
 with open("alunosED_2025.txt", 'r') as arquivo:
     sla = arquivo.readlines()
     soma = 0
@@ -64,3 +69,4 @@ with open("alunosED_2025.txt", 'r') as arquivo:
         soma += i[1]
 
     print(f"Total de colisões: {soma}")
+    print(f"Fator de carga da tabela : {Tabela.fator(len(sla))}" ) 

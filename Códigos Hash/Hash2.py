@@ -1,3 +1,12 @@
+import os
+import sys
+hashseed = os.getenv('PYTHONHASHSEED')
+if not hashseed:
+    os.environ['PYTHONHASHSEED'] = '0'
+    os.execv(sys.executable, [sys.executable] + sys.argv)
+
+#Definição de variavél de ambiente (seed Hash) para padronizar os hashs a cada execução
+
 class Node: #Definição da classe Node
     
     #Contém: um valor armazenado nesse Nó e um ponteiro pro próximo Node
@@ -45,7 +54,11 @@ class HashTable: #Definição da classe HashTable
             while(aux != None):
                 print(aux.valor)
                 aux = aux.prox
-    
+
+    #Retorna o fator de carga da HashTable atual ao passar a quantidade de elementos inseridos
+    def fator(self, n):
+        return n/self.M
+
 Tabela = HashTable(26) #Cria a estrutura de HashTable, definindo as posições
 with open("alunosED_2025.txt", 'r') as arquivo:
     sla = arquivo.readlines()
@@ -61,3 +74,4 @@ with open("alunosED_2025.txt", 'r') as arquivo:
         soma += i[1]
 
     print(f"Total de colisões: {soma}")
+    print(f"Fator de carga da tabela : {Tabela.fator(len(sla))}" ) 
