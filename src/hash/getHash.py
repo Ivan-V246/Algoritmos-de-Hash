@@ -11,12 +11,24 @@ def getDataHash(hashTable):
         #Abre o arquivo e adiciona cada uma das linhas a HashTable
         #Soma armazena a soma das colisões. Resp é um array de tuplas, que contém: [Posição, Colisões].
         resp = hashTable.numColisoes()
-        x = []
-        y = []
-        n = 0
+        x = [] # Eixo x
+        y = [] # Eixo y
+        n = 0 # Quantidade de elementos
+        
         for i in resp:
-            n += i[1]
-            x.append(i[0])
-            y.append(i[1])
+            n += i[1] # Calcula a quantidade de elementos no hash
+            x.append(i[0]) # quantidade de colunas no hash
+            y.append(i[1]) # valores associados as colunas
             
-    return (x,y, hashTable.fator(n))
+                
+        fator = hashTable.fator(n) # fator de carga do hash
+        errorDistHash = 0 # Erro de distribuicao hash
+        
+        # Calcula o erro de distribuicao
+        for i in y:
+            if i > fator:
+                errorDistHash += i - fator
+        
+        errorDistHash = (errorDistHash / len(x))
+        
+    return (x, y, fator, errorDistHash)

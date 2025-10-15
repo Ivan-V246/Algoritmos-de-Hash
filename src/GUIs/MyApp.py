@@ -21,11 +21,7 @@ class MyWindow(QMainWindow):
     
     def __init__(self):
         super().__init__()
-        self.errorMessage = None # Gerencia a messagem de erro na leitura de dado, se ela deve ser exibida ou nao
-        self.fileName = None # Gerencia o arquivo que será enviado para ordenar 
-        self.algorithm = None # Gerencia o algorítmo escolhido para ordenação
-        self.loading_dialog = None  # Gerencia o diálogo de carregamento
-        self.autoTeste = None # Gerencia o teste automatico
+        self.erroHash = None
 
 
         self.setWindowTitle("Implementações Hash")
@@ -37,6 +33,7 @@ class MyWindow(QMainWindow):
     # Renderiza o menu principal da aplicacao 
     def showMainMenu(self):
         CENTER = Qt.AlignmentFlag.AlignCenter # Cria um centralizacao 
+        self.erroHash = None # Faz o "clear desse atributo de classe"
 
         widget = QWidget() # Widget generico
         layout = QVBoxLayout() # Box vertical
@@ -78,6 +75,7 @@ class MyWindow(QMainWindow):
     def showHashLetter(self):
         FONT = QFont("Arial")
         FONT.setPixelSize(20)
+        CENTER = Qt.AlignmentFlag.AlignCenter # Constante que centraliza
         M = 26 # Tamanho do array hash que deve ser criado
 
         # widget e layout da tela
@@ -105,7 +103,7 @@ class MyWindow(QMainWindow):
         # Cria o hash com as especificacoes da metodologia 
         hashTable = HashTableLetter(M)
         # Pega os dados do hash
-        x, y, fator = getDataHash(hashTable)
+        x, y, fator, self.errorHash = getDataHash(hashTable)
 
         # Associa letras com o index, usando os valores da tabela ASCII
         labels = [chr(65 + i) for i in range(len(x))]
@@ -137,6 +135,9 @@ class MyWindow(QMainWindow):
         
         # Renderiza
         self.canvas.draw()
+        # Texto para mostrar o erro de distribuicao
+        labelErrorHash = QLabel(f"Erro de distribuição: {self.errorHash}")
+        labelErrorHash.setFont(FONT)
 
         # Botão para voltar pro menu principal
         button_back = QPushButton("Voltar")
@@ -145,9 +146,10 @@ class MyWindow(QMainWindow):
         button_back.clicked.connect(self.showMainMenu)
 
         # Adiciona os botões e o gráfico no layout do widget
-        layout.addWidget(label_select, alignment=Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(label_select, alignment=CENTER)
+        layout.addWidget(labelErrorHash, alignment=CENTER)
         layout.addWidget(self.canvas)
-        layout.addWidget(button_back, alignment=Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(button_back, alignment=CENTER)
         layout.setContentsMargins(20, 0, 20, 40)
 
         widget.setLayout(layout)
@@ -157,6 +159,7 @@ class MyWindow(QMainWindow):
     def showHashPython(self):
         FONT = QFont("Arial") 
         FONT.setPixelSize(20)
+        CENTER = Qt.AlignmentFlag.AlignCenter
         M = 26 # Tamanho do array hash
 
         # widget e layout da tela
@@ -184,7 +187,7 @@ class MyWindow(QMainWindow):
         # Cria o hash com as especificacoes da metodologia 
         hashTable = HashTablePython(M)
         # Pega os dados do hash
-        x, y, fator = getDataHash(hashTable)
+        x, y, fator, self.errorHash = getDataHash(hashTable)
 
         # Associa letras com o index, usando os valores da tabela ASCII
         labels = [chr(65 + i) for i in range(len(x))]
@@ -217,6 +220,10 @@ class MyWindow(QMainWindow):
             
         # Renderiza
         self.canvas.draw()
+        
+        # Texto que mostra o erro de distribuicao
+        labelErrorHash = QLabel(f"Erro de distribuição: {self.errorHash}")
+        labelErrorHash.setFont(FONT)
 
         # Botão para voltar pro menu principal
         button_back = QPushButton("Voltar")
@@ -225,15 +232,15 @@ class MyWindow(QMainWindow):
         button_back.clicked.connect(self.showMainMenu)
 
         # Adiciona os botões e o gráfico no layout do widget
-        layout.addWidget(label_select, alignment=Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(label_select, alignment=CENTER)
+        layout.addWidget(labelErrorHash, alignment=CENTER)
         layout.addWidget(self.canvas)
-        layout.addWidget(button_back, alignment=Qt.AlignmentFlag.AlignCenter)
+        layout.addWidget(button_back, alignment=CENTER)
         layout.setContentsMargins(20, 0, 20, 40)
 
         widget.setLayout(layout)
         self.setCentralWidget(widget)  # Renderiza na tela o widget criado
 
-    # Terceira Metodologia
     def showHashPrimo(self):
         FONT = QFont("Arial")
         FONT.setPixelSize(20)
@@ -257,7 +264,7 @@ class MyWindow(QMainWindow):
         self.combo_m.addItems(["17", "43", "97"]) # Valores primos possiveis
         self.combo_m.setFixedWidth(150)
 
-        # Layout horizontal para o seletor de 
+        # Layout horizontal para o seletor de M
         input_layout = QHBoxLayout()
         input_layout.addWidget(label_m)
         input_layout.addWidget(self.combo_m)
@@ -265,6 +272,10 @@ class MyWindow(QMainWindow):
 
         # Canvas do matplotlib
         self.canvas = MplCanvas(self, width=5, height=4, dpi=100)
+
+        # Label do erro (inicialmente vazio)
+        self.labelErrorHash = QLabel("")
+        self.labelErrorHash.setFont(FONT)
 
         # Botão para gerar o gráfico
         button_generate = QPushButton("Gerar Gráfico")
@@ -281,6 +292,7 @@ class MyWindow(QMainWindow):
         # Monta o layout principal
         layout.addWidget(label_select, alignment=CENTER)
         layout.addLayout(input_layout)
+        layout.addWidget(self.labelErrorHash, alignment=CENTER)
         layout.addWidget(self.canvas)
         layout.addWidget(button_generate, alignment=CENTER)
         layout.addWidget(button_back, alignment=CENTER)
@@ -310,10 +322,10 @@ class MyWindow(QMainWindow):
         # QComboBox para selecionar o M 
         self.combo_m = QComboBox()
         self.combo_m.setFont(FONT)
-        self.combo_m.addItems(["16", "40", "100"]) # Valores primos possiveis
+        self.combo_m.addItems(["16", "40", "100"]) # Valores pares possiveis
         self.combo_m.setFixedWidth(150)
 
-        # Layout horizontal para o seletor de 
+        # Layout horizontal para o seletor de M
         input_layout = QHBoxLayout()
         input_layout.addWidget(label_m)
         input_layout.addWidget(self.combo_m)
@@ -321,6 +333,10 @@ class MyWindow(QMainWindow):
 
         # Canvas do matplotlib
         self.canvas = MplCanvas(self, width=5, height=4, dpi=100)
+        
+        # Label do erro (inicialmente vazio)
+        self.labelErrorHash = QLabel("")
+        self.labelErrorHash.setFont(FONT)
 
         # Botão para gerar o gráfico
         button_generate = QPushButton("Gerar Gráfico")
@@ -337,6 +353,7 @@ class MyWindow(QMainWindow):
         # Monta o layout principal
         layout.addWidget(label_select, alignment=CENTER)
         layout.addLayout(input_layout)
+        layout.addWidget(self.labelErrorHash, alignment=CENTER)
         layout.addWidget(self.canvas)
         layout.addWidget(button_generate, alignment=CENTER)
         layout.addWidget(button_back, alignment=CENTER)
@@ -353,7 +370,10 @@ class MyWindow(QMainWindow):
         # Cria o hash com as especificacoes da metodologia 
         hashTable = HashTablePrimo(M)
         # Pega os dados do hash
-        x, y, fator = getDataHash(hashTable)
+        x, y, fator, self.erroHash = getDataHash(hashTable)
+        
+        # Atualiza o texto do erro após gerar o gráfico
+        self.labelErrorHash.setText(f"Erro de distribuição: {self.erroHash}")
 
         # Limpa o gráfico anterior
         self.canvas.axes.clear()
@@ -402,10 +422,10 @@ class MyWindow(QMainWindow):
 
         # Legenda
         self.canvas.axes.legend(loc='upper left')
-        # self.canvas.figure.set_size_inches(14, 8) # Aumenta o tamanho da imagem 
-        # self.canvas.figure.savefig(f"grafico_hash_{M}.png", dpi=400, bbox_inches="tight") # Salva o gráfico em PNG com qualidade melhorada
-        # # Renderiza o gráfico
+
+        # Renderiza o gráfico
         self.canvas.draw()
+
 
     # Sai da aplicacao
     def exitAplication(self):
