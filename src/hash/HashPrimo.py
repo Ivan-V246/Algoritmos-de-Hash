@@ -48,23 +48,3 @@ class HashTablePrimo: #Definição da classe HashTable
     #Retorna o fator de carga da HashTable atual ao passar a quantidade de elementos inseridos
     def fator(self, n):
         return n/self.M
-
-def resultPrimo(M: int):
-    Tabela = HashTablePrimo(M) #Cria a estrutura de HashTable, definindo as posições
-    with open(PATH_FILE_NAMES, 'r', encoding="UTF-8") as arquivo:
-        sla = arquivo.readlines()
-        for i in sla:
-            Tabela.put(i)
-        
-        #Abre o arquivo e adiciona cada uma das linhas a HashTable
-        #Soma armazena a soma das colisões. Resp é um array de tuplas, que contém: [Posição, Colisões].
-        resp = Tabela.numColisoes()
-        x = []
-        y = []
-        n = 0
-        for i in resp:
-            n += i[1]
-            x.append(i[0])
-            y.append(i[1])
-            
-    return (x,y, Tabela.fator(n))
