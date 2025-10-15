@@ -14,9 +14,9 @@ class HashTableLetter: #Definição da classe HashTable
     def put(self, nome):
         temp = Node(nome)
         pos = self._hash(nome)
-        aux = self.table[pos]
 
         #Validação para evitar a existência de elementos repetidos na Tabela Hash
+        aux = self.table[pos]
         while aux != None:
             if aux.valor == nome:
                 return

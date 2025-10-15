@@ -32,6 +32,7 @@ class HashTablePython: #Definição da classe HashTable
         pos = self._hash(nome)
 
         #Validação para evitar a existência de elementos repetidos na Tabela Hash
+        aux = self.table[pos]
         while aux != None:
             if aux.valor == nome:
                 return
