@@ -136,7 +136,7 @@ class MyWindow(QMainWindow):
         # Renderiza
         self.canvas.draw()
         # Texto para mostrar o erro de distribuicao
-        labelErrorHash = QLabel(f"Erro de distribuição: {self.errorHash}")
+        labelErrorHash = QLabel(f"Média de excesso de colisões: {self.errorHash}")
         labelErrorHash.setFont(FONT)
 
         # Botão para voltar pro menu principal
@@ -222,7 +222,7 @@ class MyWindow(QMainWindow):
         self.canvas.draw()
         
         # Texto que mostra o erro de distribuicao
-        labelErrorHash = QLabel(f"Erro de distribuição: {self.errorHash}")
+        labelErrorHash = QLabel(f"Média de excesso de colisões: {self.errorHash}")
         labelErrorHash.setFont(FONT)
 
         # Botão para voltar pro menu principal
@@ -373,7 +373,7 @@ class MyWindow(QMainWindow):
         x, y, fator, self.erroHash = getDataHash(hashTable)
         
         # Atualiza o texto do erro após gerar o gráfico
-        self.labelErrorHash.setText(f"Erro de distribuição: {self.erroHash}")
+        self.labelErrorHash.setText(f"Média de excesso de colisões: {self.erroHash}")
 
         # Limpa o gráfico anterior
         self.canvas.axes.clear()

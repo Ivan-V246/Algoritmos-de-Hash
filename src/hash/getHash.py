@@ -1,4 +1,5 @@
 from constants import PATH_FILE_NAMES
+from math import sqrt
 
 # Funcao que extrai os dados do arquivo e cria um hash com esse dados 
 # Retorna os dados do Hash: colisoes, tamanho do array hash e fator de carga
@@ -27,8 +28,10 @@ def getDataHash(hashTable):
         # Calcula o erro de distribuicao
         for i in y:
             if i > fator:
-                errorDistHash += i - fator
+                errorDistHash += (i - fator)**2
         
+        # Calculo do desvio padrao
         errorDistHash = (errorDistHash / len(x))
+        errorDistHash = sqrt(errorDistHash)
         
     return (x, y, fator, errorDistHash)
