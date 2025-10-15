@@ -137,7 +137,7 @@ class MyWindow(QMainWindow):
         # Renderiza
         self.canvas.draw()
         # Texto para mostrar o erro de distribuicao
-        labelDesvioPadrao = QLabel(f"Desvio padrao de colisões: {self.desvioPadrao:4f}")
+        labelDesvioPadrao = QLabel(f"Desvio padrão de colisões: {self.desvioPadrao:4f}")
         labelDesvioPadrao.setFont(FONT)
         labelExcessoColisao = QLabel(f"Média de excesso de colisões: {self.excessoColisoes:4f}")
         labelExcessoColisao.setFont(FONT)
@@ -226,7 +226,7 @@ class MyWindow(QMainWindow):
         self.canvas.draw()
         
         # Texto para mostrar o erro de distribuicao
-        labelDesvioPadrao = QLabel(f"Desvio padrao de colisões: {self.desvioPadrao:4f}")
+        labelDesvioPadrao = QLabel(f"Desvio padrão de colisões: {self.desvioPadrao:4f}")
         labelDesvioPadrao.setFont(FONT)
         labelExcessoColisao = QLabel(f"Média de excesso de colisões: {self.excessoColisoes:4f}")
         labelExcessoColisao.setFont(FONT)
@@ -386,7 +386,7 @@ class MyWindow(QMainWindow):
         x, y, fator, self.desvioPadrao, self.excessoColisoes = getDataHash(hashTable)
         
         # Atualiza o texto do erro após gerar o gráfico
-        self.labelDesvioPadrao.setText(f"Desvio padrao de colisões: {self.desvioPadrao:4f}")
+        self.labelDesvioPadrao.setText(f"Desvio padrão de colisões: {self.desvioPadrao:4f}")
         self.labelExcessoColisao.setText(f"Média de excesso de colisões: {self.excessoColisoes:4f}")
         # Limpa o gráfico anterior
         self.canvas.axes.clear()

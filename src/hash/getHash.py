@@ -16,9 +16,8 @@ def getDataHash(hashTable):
         resp = hashTable.numColisoes()
         x = [] # Eixo x
         y = [] # Eixo y
-        
+      
         for i in resp:
-            #n += i[1] # Calcula a quantidade de elementos no hash
             x.append(i[0]) # quantidade de colunas no hash
             y.append(i[1]) # valores associados as colunas
             
@@ -40,5 +39,5 @@ def getDataHash(hashTable):
         desvioPadrao = sqrt(desvioPadrao)
         
         excessoColisoes = (excessoColisoes / isExcessoColisoes)
-        
+    
     return (x, y, fator, desvioPadrao, excessoColisoes)
