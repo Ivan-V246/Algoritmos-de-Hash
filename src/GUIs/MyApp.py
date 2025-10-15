@@ -131,8 +131,8 @@ class MyWindow(QMainWindow):
 
         # Legenda
         self.canvas.axes.legend(loc='upper left')
-        # self.canvas.figure.set_size_inches(14, 8) # Aumenta o tamanho da imagem 
-        # self.canvas.figure.savefig(f"grafico_hash_letter.png", dpi=400, bbox_inches="tight") # Salva o gráfico em PNG com qualidade melhorada
+        #self.canvas.figure.set_size_inches(14, 8) # Aumenta o tamanho da imagem 
+        #self.canvas.figure.savefig(f"grafico_hash_letter.png", dpi=400, bbox_inches="tight") # Salva o gráfico em PNG com qualidade melhorada
         
         # Renderiza
         self.canvas.draw()
@@ -219,8 +219,8 @@ class MyWindow(QMainWindow):
         # Legenda
         self.canvas.axes.legend(loc='upper left')
 
-        # self.canvas.figure.set_size_inches(14, 8) # Aumenta o tamanho da imagem 
-        # self.canvas.figure.savefig(f"grafico_hash_python.png", dpi=400, bbox_inches="tight") # Salva o gráfico em PNG com qualidade melhorada
+        #self.canvas.figure.set_size_inches(14, 8) # Aumenta o tamanho da imagem 
+        #self.canvas.figure.savefig(f"grafico_hash_python.png", dpi=400, bbox_inches="tight") # Salva o gráfico em PNG com qualidade melhorada
             
         # Renderiza
         self.canvas.draw()
@@ -435,6 +435,10 @@ class MyWindow(QMainWindow):
 
         # Legenda
         self.canvas.axes.legend(loc='upper left')
+        
+        #self.canvas.figure.set_size_inches(14, 8) # Aumenta o tamanho da imagem 
+        #self.canvas.figure.savefig(f"grafico_hash_python_{M}.png", dpi=400, bbox_inches="tight") # Salva o gráfico em PNG com qualidade melhorada
+           
 
         # Renderiza o gráfico
         self.canvas.draw()
