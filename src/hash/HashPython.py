@@ -1,5 +1,6 @@
 import os
 import sys
+from hash.node import Node # type: ignore
 from constants import PATH_FILE_NAMES
 
 class Node: #Definição da classe Node

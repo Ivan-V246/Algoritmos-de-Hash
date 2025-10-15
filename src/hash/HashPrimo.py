@@ -1,11 +1,5 @@
 from constants import PATH_FILE_NAMES
-
-class Node: #Definição da classe Node
-    
-    #Contém: um valor armazenado nesse Nó e um ponteiro pro próximo Node
-    def __init__(self,valor):
-        self.valor = valor
-        self.prox = None
+from hash.node import Node
 
 class HashTablePrimo: #Definição da classe HashTable
     
@@ -55,8 +49,8 @@ class HashTablePrimo: #Definição da classe HashTable
     def fator(self, n):
         return n/self.M
 
-def resultPrimo():
-    Tabela = HashTablePrimo(26) #Cria a estrutura de HashTable, definindo as posições
+def resultPrimo(M: int):
+    Tabela = HashTablePrimo(M) #Cria a estrutura de HashTable, definindo as posições
     with open(PATH_FILE_NAMES, 'r', encoding="UTF-8") as arquivo:
         sla = arquivo.readlines()
         for i in sla:
