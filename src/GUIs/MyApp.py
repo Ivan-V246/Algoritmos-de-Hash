@@ -21,8 +21,8 @@ class MyWindow(QMainWindow):
     
     def __init__(self):
         super().__init__()
-        self.erroHash = None
-
+        self.desvioPadrao = None # Devio padrao das colisoes hash
+        self.excessoColisoes = None # Exceso de colisoes do hash
 
         self.setWindowTitle("Implementações Hash")
         self.setFixedSize(WINDOW_HEIGTH, WINDOW_WIDTH)
@@ -33,7 +33,8 @@ class MyWindow(QMainWindow):
     # Renderiza o menu principal da aplicacao 
     def showMainMenu(self):
         CENTER = Qt.AlignmentFlag.AlignCenter # Cria um centralizacao 
-        self.erroHash = None # Faz o "clear desse atributo de classe"
+        self.desvioPadrao = None # Faz o "clear desse atributo de classe"
+        self.excessoColisoes = None
 
         widget = QWidget() # Widget generico
         layout = QVBoxLayout() # Box vertical
@@ -103,7 +104,7 @@ class MyWindow(QMainWindow):
         # Cria o hash com as especificacoes da metodologia 
         hashTable = HashTableLetter(M)
         # Pega os dados do hash
-        x, y, fator, self.errorHash = getDataHash(hashTable)
+        x, y, fator, self.desvioPadrao, self.excessoColisoes = getDataHash(hashTable)
 
         # Associa letras com o index, usando os valores da tabela ASCII
         labels = [chr(65 + i) for i in range(len(x))]
@@ -136,8 +137,10 @@ class MyWindow(QMainWindow):
         # Renderiza
         self.canvas.draw()
         # Texto para mostrar o erro de distribuicao
-        labelErrorHash = QLabel(f"Média de excesso de colisões: {self.errorHash}")
-        labelErrorHash.setFont(FONT)
+        labelDesvioPadrao = QLabel(f"Desvio padrao de colisões: {self.desvioPadrao:4f}")
+        labelDesvioPadrao.setFont(FONT)
+        labelExcessoColisao = QLabel(f"Média de excesso de colisões: {self.excessoColisoes:4f}")
+        labelExcessoColisao.setFont(FONT)
 
         # Botão para voltar pro menu principal
         button_back = QPushButton("Voltar")
@@ -147,7 +150,8 @@ class MyWindow(QMainWindow):
 
         # Adiciona os botões e o gráfico no layout do widget
         layout.addWidget(label_select, alignment=CENTER)
-        layout.addWidget(labelErrorHash, alignment=CENTER)
+        layout.addWidget(labelDesvioPadrao, alignment=CENTER)
+        layout.addWidget(labelExcessoColisao, alignment=CENTER)
         layout.addWidget(self.canvas)
         layout.addWidget(button_back, alignment=CENTER)
         layout.setContentsMargins(20, 0, 20, 40)
@@ -187,7 +191,7 @@ class MyWindow(QMainWindow):
         # Cria o hash com as especificacoes da metodologia 
         hashTable = HashTablePython(M)
         # Pega os dados do hash
-        x, y, fator, self.errorHash = getDataHash(hashTable)
+        x, y, fator, self.desvioPadrao, self.excessoColisoes = getDataHash(hashTable)
 
         # Associa letras com o index, usando os valores da tabela ASCII
         labels = [chr(65 + i) for i in range(len(x))]
@@ -221,9 +225,11 @@ class MyWindow(QMainWindow):
         # Renderiza
         self.canvas.draw()
         
-        # Texto que mostra o erro de distribuicao
-        labelErrorHash = QLabel(f"Média de excesso de colisões: {self.errorHash}")
-        labelErrorHash.setFont(FONT)
+        # Texto para mostrar o erro de distribuicao
+        labelDesvioPadrao = QLabel(f"Desvio padrao de colisões: {self.desvioPadrao:4f}")
+        labelDesvioPadrao.setFont(FONT)
+        labelExcessoColisao = QLabel(f"Média de excesso de colisões: {self.excessoColisoes:4f}")
+        labelExcessoColisao.setFont(FONT)
 
         # Botão para voltar pro menu principal
         button_back = QPushButton("Voltar")
@@ -233,7 +239,8 @@ class MyWindow(QMainWindow):
 
         # Adiciona os botões e o gráfico no layout do widget
         layout.addWidget(label_select, alignment=CENTER)
-        layout.addWidget(labelErrorHash, alignment=CENTER)
+        layout.addWidget(labelDesvioPadrao, alignment=CENTER)
+        layout.addWidget(labelExcessoColisao, alignment=CENTER)
         layout.addWidget(self.canvas)
         layout.addWidget(button_back, alignment=CENTER)
         layout.setContentsMargins(20, 0, 20, 40)
@@ -273,9 +280,11 @@ class MyWindow(QMainWindow):
         # Canvas do matplotlib
         self.canvas = MplCanvas(self, width=5, height=4, dpi=100)
 
-        # Label do erro (inicialmente vazio)
-        self.labelErrorHash = QLabel("")
-        self.labelErrorHash.setFont(FONT)
+        # Texto para mostrar o erro de distribuicao
+        self.labelDesvioPadrao = QLabel()
+        self.labelDesvioPadrao.setFont(FONT)
+        self.labelExcessoColisao = QLabel()
+        self.labelExcessoColisao.setFont(FONT)
 
         # Botão para gerar o gráfico
         button_generate = QPushButton("Gerar Gráfico")
@@ -292,7 +301,8 @@ class MyWindow(QMainWindow):
         # Monta o layout principal
         layout.addWidget(label_select, alignment=CENTER)
         layout.addLayout(input_layout)
-        layout.addWidget(self.labelErrorHash, alignment=CENTER)
+        layout.addWidget(self.labelDesvioPadrao, alignment=CENTER)
+        layout.addWidget(self.labelExcessoColisao, alignment=CENTER)
         layout.addWidget(self.canvas)
         layout.addWidget(button_generate, alignment=CENTER)
         layout.addWidget(button_back, alignment=CENTER)
@@ -334,9 +344,11 @@ class MyWindow(QMainWindow):
         # Canvas do matplotlib
         self.canvas = MplCanvas(self, width=5, height=4, dpi=100)
         
-        # Label do erro (inicialmente vazio)
-        self.labelErrorHash = QLabel("")
-        self.labelErrorHash.setFont(FONT)
+       # Texto para mostrar o erro de distribuicao
+        self.labelDesvioPadrao = QLabel()
+        self.labelDesvioPadrao.setFont(FONT)
+        self.labelExcessoColisao = QLabel()
+        self.labelExcessoColisao.setFont(FONT)
 
         # Botão para gerar o gráfico
         button_generate = QPushButton("Gerar Gráfico")
@@ -353,7 +365,8 @@ class MyWindow(QMainWindow):
         # Monta o layout principal
         layout.addWidget(label_select, alignment=CENTER)
         layout.addLayout(input_layout)
-        layout.addWidget(self.labelErrorHash, alignment=CENTER)
+        layout.addWidget(self.labelDesvioPadrao, alignment=CENTER)
+        layout.addWidget(self.labelExcessoColisao, alignment=CENTER)
         layout.addWidget(self.canvas)
         layout.addWidget(button_generate, alignment=CENTER)
         layout.addWidget(button_back, alignment=CENTER)
@@ -370,11 +383,11 @@ class MyWindow(QMainWindow):
         # Cria o hash com as especificacoes da metodologia 
         hashTable = HashTablePrimo(M)
         # Pega os dados do hash
-        x, y, fator, self.erroHash = getDataHash(hashTable)
+        x, y, fator, self.desvioPadrao, self.excessoColisoes = getDataHash(hashTable)
         
         # Atualiza o texto do erro após gerar o gráfico
-        self.labelErrorHash.setText(f"Média de excesso de colisões: {self.erroHash}")
-
+        self.labelDesvioPadrao.setText(f"Desvio padrao de colisões: {self.desvioPadrao:4f}")
+        self.labelExcessoColisao.setText(f"Média de excesso de colisões: {self.excessoColisoes:4}")
         # Limpa o gráfico anterior
         self.canvas.axes.clear()
 
