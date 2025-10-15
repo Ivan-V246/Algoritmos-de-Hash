@@ -387,7 +387,7 @@ class MyWindow(QMainWindow):
         
         # Atualiza o texto do erro após gerar o gráfico
         self.labelDesvioPadrao.setText(f"Desvio padrao de colisões: {self.desvioPadrao:4f}")
-        self.labelExcessoColisao.setText(f"Média de excesso de colisões: {self.excessoColisoes:4}")
+        self.labelExcessoColisao.setText(f"Média de excesso de colisões: {self.excessoColisoes:4f}")
         # Limpa o gráfico anterior
         self.canvas.axes.clear()
 
