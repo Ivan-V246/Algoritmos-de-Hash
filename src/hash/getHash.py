@@ -27,8 +27,7 @@ def getDataHash(hashTable):
         
         # Calcula o erro de distribuicao
         for i in y:
-            if i > fator:
-                errorDistHash += (i - fator)**2
+            errorDistHash += (i - fator)**2
         
         # Calculo do desvio padrao
         errorDistHash = (errorDistHash / len(x))
